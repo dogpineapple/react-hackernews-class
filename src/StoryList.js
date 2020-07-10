@@ -3,12 +3,13 @@ import axios from "axios";
 import SearchForm from "./SearchForm";
 import Story from "./Story";
 
+// make const BASE_URL 
 class StoryList extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = { stories: [] };
-    this.searchStories = this.searchStories.bind(this);
+    // this.searchStories = this.searchStories.bind(this);
   };
 
   async componentDidMount() {
@@ -16,12 +17,11 @@ class StoryList extends React.Component {
     this.setState({ stories: res.data.hits });
   };
 
-  async searchStories(term) {
+  // arrow function won't need line 12 since arrow fxn doesn't have their own `this` context
+  searchStories = async (term) => {
     const res = await axios.get(`https://hn.algolia.com/api/v1/search?query=${term}`);
     this.setState({ stories: res.data.hits });
   }
-
-
 
   render() {
     return (
